@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord - Nitro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        function selectProduct(product) {
+            localStorage.setItem('selectedProduct', product);
+            window.location.href = 'payment.html';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Discord</div>
+            <ul>
+                <li><a href="#">Download</a></li>
+                <li><a href="#">Nitro</a></li>
+                <li><a href="#">Discover</a></li>
+                <li><a href="#">Safety</a></li>
+                <li><a href="#">Support</a></li>
+            </ul>
+            <button class="open-discord">Open Discord</button>
+        </nav>
+    </header>
+    <section class="nitro">
+        <div class="nitro-text">
+            <h1>Unlock a World of Perks with Nitro</h1>
+            <p>Subscribe to Nitro to upgrade your emoji, personalize your profile, share bigger files, and more.</p>
+        </div>
+        <div class="nitro-image">
+            <img src="images/web2.png" alt="Discord Nitro">
+        </div>
+    </section>
+    <section class="nitro-products-container">
+        <div class="nitro-products">
+            <div class="product" onclick="selectProduct('Nitro 1 Month')">
+                <img src="nitro1.png" alt="Nitro 1 Month">
+                <p>Nitro 1 Month</p>
+            </div>
+            <div class="product" onclick="selectProduct('Nitro 12 Months')">
+                <img src="nitro12.png" alt="Nitro 12 Months">
+                <p>Nitro 12 Months</p>
+            </div>
+            <div class="product" onclick="selectProduct('Nitro Basic 1 Month')">
+                <img src="nitrobasic.png" alt="Nitro Basic 1 Month">
+                <p>Nitro Basic 1 Month</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
