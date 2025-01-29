@@ -61,6 +61,22 @@ nav ul li a {
     text-align: left;
 }
 
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    text-align: left;
+    position: relative;
+}
+
+.open-discord-container {
+    position: fixed; /* Agar tetap berada di posisi bawah halaman */
+    left: 50%; /* Posisi kiri tengah */
+    bottom: 60px; /* Menjaga tombol tetap sedikit lebih rendah dari tengah */
+    transform: translateX(-50%); /* Memindahkan tombol agar tepat di tengah */
+}
+
 .hero-text, .nitro-text {
     width: 50%;
     padding-right: 20px;

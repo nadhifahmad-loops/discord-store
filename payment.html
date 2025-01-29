@@ -3,49 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pembayaran - Discord Nitro</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Pembayaran Produk</title>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="YOUR_CLIENT_KEY"></script>
+</head>
+<body>
+    <h1>Pembayaran Produk</h1>
+    <p>Nama Produk: <span id="product-name"></span></p>
+    <p>Harga: <span id="product-price"></span></p>
+    <button id="pay-button">Bayar Sekarang</button>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let product = localStorage.getItem("selectedProduct") || "Tidak ada produk";
-            let price = "Rp " + (product.includes("12 Months") ? "500.000" : product.includes("Basic") ? "50.000" : "150.000");
+            let price = product.includes("12 Months") ? "500000" : product.includes("Basic") ? "50000" : "150000";
             
             document.getElementById("product-name").innerText = product;
             document.getElementById("product-price").innerText = price;
+            
+            document.getElementById("pay-button").addEventListener("click", function () {
+                fetch('/create-transaction', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_name: product,
+                        price: price
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    snap.pay(data.token); // Memanggil Midtrans Snap untuk melakukan pembayaran
+                })
+                .catch(error => console.error("Error:", error));
+            });
         });
-        
-        function payNow() {
-            document.getElementById("payment-details").style.display = "block";
-        }
-
-        // Cek status pembayaran setiap 5 detik
-setInterval(() => {
-    fetch('/backend/payment_backend.php?action=check')  // Cek status pembayaran
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "paid") {
-                alert("Pembayaran berhasil! Anda mendapatkan Nitro.");
-                window.location.href = "dashboard.html";  // Arahkan ke dashboard setelah konfirmasi
-            }
-        });
-}, 5000); // Cek setiap 5 detik
-
     </script>
-</head>
-<body>
-    <header>
-        <h1>Halaman Pembayaran</h1>
-    </header>
-    <section class="payment-container">
-        <h2>Produk: <span id="product-name"></span></h2>
-        <p>Harga: <span id="product-price"></span></p>
-        <button onclick="payNow()">Bayar Sekarang</button>
-        
-        <div id="payment-details" style="display: none; margin-top: 20px;">
-            <h3>Silakan transfer ke rekening:</h3>
-            <p><strong>Bank ABC - 1234567890</strong></p>
-            <button onclick="confirmPayment()">Konfirmasi Pembayaran</button>
-        </div>
-    </section>
 </body>
 </html>
